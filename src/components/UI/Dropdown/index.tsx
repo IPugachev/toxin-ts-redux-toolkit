@@ -1,7 +1,5 @@
 import React, { useRef, useState } from 'react'
 import { getTitleDropdownByCount } from './utils'
-// import { useClickOutside } from '../../../hooks/useClickOutside'
-import { useDispatch, useSelector } from 'react-redux'
 import {
   AddButton,
   Arrow,
@@ -15,7 +13,7 @@ import {
   SubButton,
   SubmitButton,
 } from './styles'
-import { addDropdown, clearDropdown, selectUi, subDropdown } from '../../../features/ui/uiSlice'
+import { addDropdown, clearDropdown, subDropdown } from '../../../features/ui/uiSlice'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { useClickOutside } from '../../../hooks/useClickOutside'
 
@@ -33,8 +31,8 @@ interface DropdownProps {
 
 export const Dropdown: React.FC<DropdownProps> = ({ dropdownType, title, margin = '0' }) => {
   console.log('Dropdown rendered')
-  const ui = useAppSelector(selectUi)
-  const initialValues = ui[dropdownType]
+  const initialValues = useAppSelector((store) => store.ui[dropdownType])
+
   const headerTitle = getTitleDropdownByCount(initialValues, dropdownType)
 
   const [visible, setVisible] = useState(false)
@@ -46,7 +44,6 @@ export const Dropdown: React.FC<DropdownProps> = ({ dropdownType, title, margin 
   const toggleVisible = () => {
     setVisible((prev) => !prev)
   }
-
   const handleValue = initialValues.map((value) => value.count).every((count) => count === 0)
 
   const dispatch = useAppDispatch()

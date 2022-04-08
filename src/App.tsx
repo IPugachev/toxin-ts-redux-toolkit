@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { useAppSelector } from './app/hooks'
 import { Header } from './components/Header'
+import { Button } from './components/UI/Button'
 import { Dropdown } from './components/UI/Dropdown'
 
 export const App = () => {
+  console.log('App rendered')
+
   return (
     <BrowserRouter>
       <Header />
       <Dropdown dropdownType={'rooms'} />
+      <Button text='Кнопка' buttonStyle='long' hasArrow={true} />
       {/* <Body>
         <Header />
         <Routes>

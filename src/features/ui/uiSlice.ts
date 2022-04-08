@@ -90,6 +90,6 @@ export const uiSlice = createSlice({
     },
   },
 })
-export const selectUi = (state: RootState) => state.ui
+// export const selectUi = (state: RootState) => state.ui
 export const { changeDropdown, clearDropdown, subDropdown, addDropdown } = uiSlice.actions
 export default uiSlice.reducer
