@@ -88,8 +88,15 @@ export const uiSlice = createSlice({
         state[action.payload.dropdownType][index].count += 1
       }
     },
+    changeEntryDate: (state, action: PayloadAction<number | null>) => {
+      state.entryDate = action.payload
+    },
+    changeEndDate: (state, action: PayloadAction<number | null>) => {
+      state.endDate = action.payload
+    },
   },
 })
 // export const selectUi = (state: RootState) => state.ui
-export const { changeDropdown, clearDropdown, subDropdown, addDropdown } = uiSlice.actions
+export const { changeDropdown, clearDropdown, subDropdown, addDropdown, changeEntryDate, changeEndDate } =
+  uiSlice.actions
 export default uiSlice.reducer

@@ -3,9 +3,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useAppSelector } from './app/hooks'
 import { Header } from './components/Header'
 import { Button } from './components/UI/Button'
+import Calendar from './components/UI/Calendar'
 import { Dropdown } from './components/UI/Dropdown'
+import { Input } from './components/UI/Input'
 
-export const App = () => {
+export const App: React.FC = () => {
   console.log('App rendered')
 
   return (
@@ -13,6 +15,8 @@ export const App = () => {
       <Header />
       <Dropdown dropdownType={'rooms'} />
       <Button text='Кнопка' buttonStyle='long' hasArrow={true} />
+      <Input styled='date' />
+      <Calendar />
       {/* <Body>
         <Header />
         <Routes>

@@ -29,7 +29,7 @@ interface DropdownProps {
   margin?: string
 }
 
-export const Dropdown: React.FC<DropdownProps> = ({ dropdownType, title, margin = '0' }) => {
+export const Dropdown: React.FC<DropdownProps> = ({ dropdownType, title, margin }) => {
   console.log('Dropdown rendered')
   const initialValues = useAppSelector((store) => store.ui[dropdownType])
 

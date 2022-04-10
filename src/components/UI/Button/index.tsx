@@ -14,7 +14,7 @@ interface ButtonProps {
 export const Button: React.FC<ButtonProps> = ({
   type = 'button',
   buttonStyle = 'white',
-  margin = '0',
+  margin,
   width,
   onClick,
   hasArrow,
