@@ -8,7 +8,7 @@ import { Days } from './Days'
 import { Info } from './Info'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { changeEndDate, changeEntryDate } from '../../../features/ui/uiSlice'
-import { Button, CalendarBox, CalendarContainer, TitleContainer, Wrapper } from './style'
+import { Button, CalendarBox, CalendarContainer, CalendarWrapper, SectionWrapper } from './style'
 
 interface CalendarProps {
   start?: string
@@ -16,157 +16,95 @@ interface CalendarProps {
   filtered?: boolean
 }
 
-const Calendar: React.FC<CalendarProps> = ({ start, end, filtered = true }) => {
+const Calendar: React.FC<CalendarProps> = ({ start, end, filtered = false }) => {
   const { entryDate } = useAppSelector((store) => store.ui)
   const { endDate } = useAppSelector((store) => store.ui)
+  const [visible, setVisible] = useState(true)
+  const dispatch = useAppDispatch()
   const [currentMonth, setCurrentMonth] = useState(new Date())
-
   const nextMonth = () => {
     setCurrentMonth(addMonths(currentMonth, 1))
   }
-
   const prevMonth = () => {
     setCurrentMonth(subMonths(currentMonth, 1))
   }
 
-  const [fromStr, setFromStr] = useState('')
-  const [untilStr, setUntilStr] = useState('')
-  const [visible, setVisible] = useState(true)
+  const clickRef = useRef<HTMLDivElement>(null)
+  useClickOutside(clickRef, () => setVisible(false))
+
   const fromRef = useRef<HTMLInputElement>(null)
   const untilRef = useRef<HTMLInputElement>(null)
-  const clickRef = useRef<HTMLDivElement>(null)
 
-  useClickOutside(clickRef, () => setVisible(false))
-  const dispatch = useAppDispatch()
-
-  // console.log('entryDate', entryDate)
-  // console.log('endDate', endDate)
-
-  // useEffect(() => {
-  //   filtered &&
-  //     (fromRef.current!.value = `${fromStr.substring(0, fromStr.length - 1)}${untilStr.substring(
-  //       0,
-  //       untilStr.length - 1
-  //     )}`)
-  //   if (entryDate !== null && endDate !== null) {
-  //     filtered
-  //       ? setFromStr(format(entryDate, 'd MMM', { locale: ru }))
-  //       : (fromRef.current!.value = format(entryDate, 'd.MM.yyyy'))
-
-  //     filtered
-  //       ? setUntilStr(' - ' + format(endDate, 'd MMM', { locale: ru }))
-  //       : (untilRef.current!.value = format(endDate, 'd.MM.yyyy'))
-  //   }
-  // }, [fromStr, untilStr])
-
-  // const onDateClick = (day: number) => {
-  //   console.log(fromRef.current, untilRef.current)
-
-  //   if (entryDate === null) {
-  //     dispatch(changeEntryDate(day))
-  //     filtered ? setFromStr(format(day, 'd MMM', { locale: ru })) : (fromRef.current!.value = format(day, 'd.MM.yyyy'))
-  //   } else if (day < entryDate) {
-  //     dispatch(changeEntryDate(day))
-  //     filtered ? setFromStr(format(day, 'd MMM', { locale: ru })) : (fromRef.current!.value = format(day, 'd.MM.yyyy'))
-  //   } else {
-  //     dispatch(changeEndDate(day))
-  //     filtered
-  //       ? setUntilStr(' - ' + format(day, 'd MMM', { locale: ru }))
-  //       : (untilRef.current!.value = format(day, 'd.MM.yyyy'))
-  //   }
-  // }
   const onDateClick = (day: number) => {
-    // console.log(fromRef.current, untilRef.current)
-    const startFiltered = format(day, 'd MMM', { locale: ru })
-    // console.log(startFiltered)
-    const endFiltered = ` -  ${format(day, 'd MMM', { locale: ru })}`
-    // console.log(endFiltered)
-    const defaultDate = format(day, 'd.MM.yyyy')
-    // console.log(defaultDate)
+    const defaultCurrentDateText = format(day, 'd.MM.yyyy')
+    const currentDateTextForFiltered = format(day, 'd MMM', { locale: ru }).replace('.', '')
+
     if (entryDate === null) {
       dispatch(changeEntryDate(day))
       filtered
-        ? (fromRef.current!.value = `${startFiltered.substring(0, startFiltered.length - 1)}${endFiltered.substring(
-            0,
-            endFiltered.length - 1
-          )}`)
-        : (fromRef.current!.value = defaultDate)
+        ? (fromRef.current!.value = currentDateTextForFiltered)
+        : (fromRef.current!.value = defaultCurrentDateText)
     } else if (day < entryDate) {
-      console.log('day', day, 'entryDate', entryDate)
-
       dispatch(changeEntryDate(day))
       filtered
-        ? (fromRef.current!.value = format(day, 'd MMM', { locale: ru }))
-        : (fromRef.current!.value = defaultDate)
+        ? (fromRef.current!.value = currentDateTextForFiltered)
+        : (fromRef.current!.value = defaultCurrentDateText)
     } else {
-      console.log('error')
-
       dispatch(changeEndDate(day))
-      console.log(endFiltered)
-
-      filtered ? (fromRef.current!.value = endFiltered) : (untilRef.current!.value = defaultDate)
+      const entryDateTaxt = format(entryDate!, 'd MMM', { locale: ru }).replace('.', '')
+      const endDateFilteredText = ` - ${format(day, 'd MMM', { locale: ru }).replace('.', '')}`
+      filtered
+        ? (fromRef.current!.value = entryDateTaxt + endDateFilteredText)
+        : (untilRef.current!.value = defaultCurrentDateText)
     }
   }
 
   const handleInputClear = () => {
     dispatch(changeEntryDate(null))
     dispatch(changeEndDate(null))
-    if (filtered) {
-      setFromStr('')
-      setUntilStr('')
-      return
-    }
     fromRef.current!.value = ''
-    untilRef.current!.value = ''
+    if (untilRef.current) {
+      untilRef.current!.value = ''
+    }
   }
 
   return (
     <CalendarBox ref={clickRef}>
-      <TitleContainer>
-        {filtered ? (
+      {filtered ? (
+        <Input
+          width='100%'
+          placeholder='Выберите даты'
+          styled='date'
+          ref={fromRef}
+          onClick={() => setVisible(!visible)}
+          title={start}
+        />
+      ) : (
+        <SectionWrapper>
           <Input
-            width='100%'
-            placeholder='Выберите даты'
+            width='150px'
+            placeholder='ДД.ММ.ГГГГ'
             styled='date'
             ref={fromRef}
-            onClick={() => setVisible(!visible)}
+            onClick={() => setVisible((prev) => !prev)}
             title={start}
           />
-        ) : (
-          <>
-            <Input
-              width='150px'
-              placeholder='ДД.ММ.ГГГГ'
-              styled='date'
-              ref={fromRef}
-              onClick={() => setVisible((prev) => !prev)}
-              title={start}
-            />
-
-            <Input
-              width='150px'
-              placeholder='ДД.ММ.ГГГГ'
-              styled='date'
-              ref={untilRef}
-              onClick={() => setVisible((prev) => !prev)}
-              title={end}
-            />
-          </>
-        )}
-      </TitleContainer>
-
-      <CalendarContainer visible={visible}>
-        <Wrapper>
-          <Info nextMonth={nextMonth} prevMonth={prevMonth} currentMonth={currentMonth} />
-          <Days currentMonth={currentMonth} filtered={filtered} />
-          <Cells
-            currentMonth={currentMonth}
-            filtered={filtered}
-            endDate={endDate!}
-            entryDate={entryDate!}
-            onClick={onDateClick}
+          <Input
+            width='150px'
+            placeholder='ДД.ММ.ГГГГ'
+            styled='date'
+            ref={untilRef}
+            onClick={() => setVisible((prev) => !prev)}
+            title={end}
           />
-          <TitleContainer style={{ margin: '20px 0' }}>
+        </SectionWrapper>
+      )}
+      <CalendarWrapper visible={visible}>
+        <CalendarContainer>
+          <Info nextMonth={nextMonth} prevMonth={prevMonth} currentMonth={currentMonth} />
+          <Days currentMonth={currentMonth} />
+          <Cells currentMonth={currentMonth} endDate={endDate!} entryDate={entryDate!} onClick={onDateClick} />
+          <SectionWrapper>
             <Button
               onClick={() => {
                 handleInputClear()
@@ -174,9 +112,9 @@ const Calendar: React.FC<CalendarProps> = ({ start, end, filtered = true }) => {
               ОЧИСТИТЬ
             </Button>
             <Button onClick={() => setVisible(false)}>ПРИМЕНИТЬ</Button>
-          </TitleContainer>
-        </Wrapper>
-      </CalendarContainer>
+          </SectionWrapper>
+        </CalendarContainer>
+      </CalendarWrapper>
     </CalendarBox>
   )
 }

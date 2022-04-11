@@ -16,7 +16,7 @@ export const App: React.FC = () => {
       <Dropdown dropdownType={'rooms'} />
       <Button text='Кнопка' buttonStyle='long' hasArrow={true} />
       <Input styled='date' />
-      <Calendar />
+      <Calendar start='Прибытие' end='выезд' filtered={true} />
       {/* <Body>
         <Header />
         <Routes>

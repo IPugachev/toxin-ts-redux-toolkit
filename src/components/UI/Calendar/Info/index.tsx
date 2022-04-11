@@ -1,9 +1,10 @@
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
-import React, { useState } from 'react'
-import { ArrowB, ArrowF, Col, Row } from './styles'
+import React from 'react'
+import { Col, NextMonthArrow, PrevMonthArrow, Row } from './styles'
 
 const months = [
+  'Декабрь',
   'Январь',
   'Февраль',
   'Март',
@@ -15,7 +16,6 @@ const months = [
   'Сентябрь',
   'Октябрь',
   'Ноябрь',
-  'Декабрь',
 ]
 
 interface InfoProps {
@@ -25,21 +25,15 @@ interface InfoProps {
 }
 
 export const Info: React.FC<InfoProps> = ({ currentMonth, nextMonth, prevMonth }) => {
-  const renderHeader = () => {
-    const dateFormat = 'yyyy'
-
-    return (
-      <Row>
-        <Col style={{ justifySelf: 'flex-start' }} onClick={prevMonth}>
-          <ArrowB />
-        </Col>
-
-        <Col>{months[Number(format(currentMonth, 'L'))] + ' ' + format(currentMonth, dateFormat, { locale: ru })}</Col>
-        <Col style={{ justifySelf: 'flex-end' }} onClick={nextMonth}>
-          <ArrowF />
-        </Col>
-      </Row>
-    )
-  }
-  return <>{renderHeader()}</>
+  return (
+    <Row>
+      <Col onClick={prevMonth}>
+        <PrevMonthArrow />
+      </Col>
+      <Col>{months[Number(format(currentMonth, 'L'))] + ' ' + format(currentMonth, 'yyyy', { locale: ru })}</Col>
+      <Col onClick={nextMonth}>
+        <NextMonthArrow />
+      </Col>
+    </Row>
+  )
 }

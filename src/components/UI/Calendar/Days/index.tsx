@@ -3,12 +3,9 @@ import { ru } from 'date-fns/locale'
 import React from 'react'
 import { DaysContainer } from './styles'
 
-interface DaysProps {
+export const Days: React.FC<{
   currentMonth: Date
-  filtered: boolean
-}
-
-export const Days: React.FC<DaysProps> = ({ currentMonth, filtered }) => {
+}> = ({ currentMonth }) => {
   const renderDays = () => {
     const dateFormat = 'EEEEEE'
     const days = []
@@ -22,7 +19,7 @@ export const Days: React.FC<DaysProps> = ({ currentMonth, filtered }) => {
         </div>
       )
     }
-    return <DaysContainer filtered={filtered}>{days}</DaysContainer>
+    return <DaysContainer>{days}</DaysContainer>
   }
 
   return <>{renderDays()}</>
