@@ -35,10 +35,8 @@ export const Dropdown: React.FC<DropdownProps> = ({ dropdownType, title, margin 
 
   const headerTitle = getTitleDropdownByCount(initialValues, dropdownType)
 
-  const [visible, setVisible] = useState(false)
-
   const clickRef = useRef<HTMLDivElement>(null)
-
+  const [visible, setVisible] = useState(false)
   useClickOutside(clickRef, () => setVisible(false))
 
   const toggleVisible = () => {

@@ -1,6 +1,7 @@
+import React from 'react'
 import { addDays, format, startOfWeek } from 'date-fns'
 import { ru } from 'date-fns/locale'
-import React from 'react'
+
 import { DaysContainer } from './styles'
 
 export const Days: React.FC<{

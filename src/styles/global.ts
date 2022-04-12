@@ -11,7 +11,9 @@ export const Global = createGlobalStyle`
   list-style: none;
   font-family: 'Montserrat', sans-serif;
 }
+
 `
+
 export interface Theme {
   colors: {
     darkShade100: string

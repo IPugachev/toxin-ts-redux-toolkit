@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { useAppSelector } from './app/hooks'
+
 import { Header } from './components/Header'
 import { Button } from './components/UI/Button'
-import Calendar from './components/UI/Calendar'
+import { Calendar } from './components/UI/Calendar'
+import { Diagram } from './components/UI/Diagram'
 import { Dropdown } from './components/UI/Dropdown'
 import { Input } from './components/UI/Input'
 
@@ -13,10 +14,12 @@ export const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Dropdown dropdownType={'rooms'} />
+      {/* <Dropdown dropdownType={'rooms'} />
       <Button text='Кнопка' buttonStyle='long' hasArrow={true} />
       <Input styled='date' />
-      <Calendar start='Прибытие' end='выезд' filtered={true} />
+      <Calendar start='Прибытие' end='выезд' filtered={true} /> */}
+      <Diagram greatReviews={50} goodReviews={60} alrightReviews={20} badReviews={0} />
+
       {/* <Body>
         <Header />
         <Routes>
