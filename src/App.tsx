@@ -17,8 +17,8 @@ export const App: React.FC = () => {
       {/* <Dropdown dropdownType={'rooms'} />
       <Button text='Кнопка' buttonStyle='long' hasArrow={true} />
       <Input styled='date' />
-      <Calendar start='Прибытие' end='выезд' filtered={true} /> */}
-      <Diagram greatReviews={50} goodReviews={60} alrightReviews={20} badReviews={0} />
+      <Calendar start='Прибытие' end='выезд' filtered={true} />
+      <Diagram greatReviews={50} goodReviews={60} alrightReviews={20} badReviews={0} /> */}
 
       {/* <Body>
         <Header />
