@@ -9,7 +9,7 @@ import { Info } from './Info'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks'
 import { changeEndDate, changeEntryDate } from '../../../features/ui/uiSlice'
 import { UseCalendarClick } from './hook'
-import { Button, CalendarBox, CalendarContainer, CalendarWrapper, SectionWrapper } from './style'
+import { Button, CalendarBox, CalendarContainer, CalendarWrapper, SectionWrapper } from './styles'
 
 interface CalendarProps {
   start?: string

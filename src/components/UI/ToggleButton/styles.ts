@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const ToggleContainer = styled.div<{ margin: string }>`
   margin: ${({ margin }) => margin};
-  width: fit-content;
 `
 export const Title = styled.div`
   font-size: 12px;
@@ -39,7 +38,7 @@ export const Slider = styled.span`
   bottom: 0;
   border: 1px solid rgba(31, 32, 65, 0.25);
   border-radius: 10px;
-  transition: 0.5s;
+  transition: all 0.3s ease-out;
   &::before {
     position: absolute;
     content: '';
@@ -49,7 +48,7 @@ export const Slider = styled.span`
     bottom: 3.5px;
     background: linear-gradient(180deg, rgba(31, 32, 65, 0.25) 0%, rgba(31, 32, 65, 0.25) 100%);
     border-radius: 50%;
-    transition: 0.3s;
+    transition: all 0.3s ease-out;
   }
 `
 export const Input = styled.input`

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Arrow, ButtonContainer, ButtonText } from './style'
+import { Arrow, ButtonContainer, ButtonText } from './styles'
 
 interface ButtonProps {
   type?: 'button' | 'submit'

@@ -7,6 +7,7 @@ import { Calendar } from './components/UI/Calendar'
 import { Diagram } from './components/UI/Diagram'
 import { Dropdown } from './components/UI/Dropdown'
 import { Input } from './components/UI/Input'
+import Toggle from './components/UI/ToggleButton'
 
 export const App: React.FC = () => {
   console.log('App rendered')
@@ -16,9 +17,10 @@ export const App: React.FC = () => {
       <Header />
       {/* <Dropdown dropdownType={'rooms'} />
       <Button text='Кнопка' buttonStyle='long' hasArrow={true} />
-      <Input styled='date' />
       <Calendar start='Прибытие' end='выезд' filtered={true} />
-      <Diagram greatReviews={50} goodReviews={60} alrightReviews={20} badReviews={0} /> */}
+    <Diagram greatReviews={50} goodReviews={60} alrightReviews={20} badReviews={0} /> */}
+
+      <Toggle title='test' />
 
       {/* <Body>
         <Header />

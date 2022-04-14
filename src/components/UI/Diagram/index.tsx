@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { AlrightReviews, BadReviews, Box, Container, GoodReviews, GreatReviews, Info, Wrapper } from './style'
+import { AlrightReviews, BadReviews, Box, Container, GoodReviews, GreatReviews, Info, Wrapper } from './styles'
 import { getDiargamPercents } from './utils'
 
 interface DiagramProps {

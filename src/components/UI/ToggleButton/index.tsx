@@ -1,8 +1,8 @@
 import React from 'react'
-import { Input, Label, Slider, Title, ToggleContainer, Wrapper } from './style'
+import { Input, Label, Slider, Title, ToggleContainer, Wrapper } from './styles'
 
 interface ToggleProps {
-  margin: string
+  margin?: string
   title: string
 }
 
