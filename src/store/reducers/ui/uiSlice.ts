@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '../../app/store'
-import { DropdownValues } from '../../components/UI/Dropdown'
+import { DropdownValues } from '../../../components/UI/Dropdown'
 
 export interface UiState {
   entryDate: number | null
@@ -94,9 +93,13 @@ export const uiSlice = createSlice({
     changeEndDate: (state, action: PayloadAction<number | null>) => {
       state.endDate = action.payload
     },
+    changeSlider: (state, action: PayloadAction<{ key: 'from' | 'to'; value: number }>) => {
+      state[action.payload.key] = action.payload.value
+      return { ...state }
+    },
   },
 })
 // export const selectUi = (state: RootState) => state.ui
-export const { changeDropdown, clearDropdown, subDropdown, addDropdown, changeEntryDate, changeEndDate } =
+export const { changeDropdown, clearDropdown, subDropdown, addDropdown, changeEntryDate, changeEndDate, changeSlider } =
   uiSlice.actions
 export default uiSlice.reducer

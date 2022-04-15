@@ -6,10 +6,11 @@ import { useClickOutside } from '../../../hooks/useClickOutside'
 import { Cells } from './Cells'
 import { Days } from './Days'
 import { Info } from './Info'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'
-import { changeEndDate, changeEntryDate } from '../../../features/ui/uiSlice'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+
 import { UseCalendarClick } from './hook'
 import { Button, CalendarBox, CalendarContainer, CalendarWrapper, SectionWrapper } from './styles'
+import { changeEndDate, changeEntryDate } from '../../../store/reducers/ui/uiSlice'
 
 interface CalendarProps {
   start?: string

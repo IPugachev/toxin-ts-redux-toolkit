@@ -2,20 +2,29 @@ import React, { useCallback, useEffect, useState, useRef } from 'react'
 import classnames from 'classnames'
 import './style.css'
 import { useDispatch } from 'react-redux'
-import { changeValues } from '../../../store/filter/action'
 
-const Slider = ({ title, initialMin, initialMax }) => {
+import { useAppSelector } from '../../../store/hooks'
+import { changeSlider } from '../../../store/reducers/ui/uiSlice'
+
+interface SliderProps {
+  title: string
+  initialMin: number
+  initialMax: number
+}
+
+export const Slider: React.FC<SliderProps> = ({ title }) => {
   const dispatch = useDispatch()
-
-  const [minVal, setMinVal] = useState(initialMin.min)
-  const [maxVal, setMaxVal] = useState(initialMax.max)
-  const minValRef = useRef(null)
-  const maxValRef = useRef(null)
-  const range = useRef(null)
+  const initialMin = useAppSelector((store) => store.ui.from)
+  const initialMax = useAppSelector((store) => store.ui.to)
+  const [minVal, setMinVal] = useState(initialMin)
+  const [maxVal, setMaxVal] = useState(initialMax)
+  const minValRef = useRef<HTMLInputElement>(null)
+  const maxValRef = useRef<HTMLInputElement>(null)
+  const range = useRef<HTMLDivElement>(null)
 
   // Convert to percentage
   const getPercent = useCallback(
-    (value) => Math.round(((value - initialMin.min) / (initialMax.max - initialMin.min)) * 100),
+    (value: number) => Math.round(((value - initialMin) / (initialMax - initialMin)) * 100),
     [initialMax, initialMin]
   )
 
@@ -55,30 +64,30 @@ const Slider = ({ title, initialMin, initialMax }) => {
       <div className='container-range'>
         <input
           type='range'
-          min={initialMin.min}
-          max={initialMax.max}
+          min={initialMin}
+          max={initialMax}
           value={minVal}
           ref={minValRef}
           onChange={(event) => {
             const value = Math.min(+event.target.value, maxVal - 1)
             setMinVal(value)
-            dispatch(changeValues(initialMin.name, value))
+            dispatch(changeSlider({ key: 'from', value: value }))
             event.target.value = value.toString()
           }}
           className={classnames('thumb thumb--zindex-3', {
-            'thumb--zindex-5': minVal > initialMax.max - 100,
+            'thumb--zindex-5': minVal > initialMax - 100,
           })}
         />
         <input
           type='range'
-          min={initialMin.min}
-          max={initialMax.max}
+          min={initialMin}
+          max={initialMax}
           value={maxVal}
           ref={maxValRef}
           onChange={(event) => {
             const value = Math.max(+event.target.value, minVal + 1)
             setMaxVal(value)
-            dispatch(changeValues(initialMax.name, value))
+            dispatch(changeSlider({ key: 'to', value: value }))
             event.target.value = value.toString()
           }}
           className='thumb thumb--zindex-4'
@@ -91,5 +100,3 @@ const Slider = ({ title, initialMin, initialMax }) => {
     </div>
   )
 }
-
-export default Slider

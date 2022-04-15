@@ -13,9 +13,10 @@ import {
   SubButton,
   SubmitButton,
 } from './styles'
-import { addDropdown, clearDropdown, subDropdown } from '../../../features/ui/uiSlice'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { useClickOutside } from '../../../hooks/useClickOutside'
+import { addDropdown, clearDropdown, subDropdown } from '../../../store/reducers/ui/uiSlice'
 
 export interface DropdownValues {
   name: string

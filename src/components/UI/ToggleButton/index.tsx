@@ -6,7 +6,7 @@ interface ToggleProps {
   title: string
 }
 
-const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(({ margin = '0', title }, ref) => {
+export const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(({ margin = '0', title }, ref) => {
   return (
     <ToggleContainer margin={margin}>
       <Title title={title}>
@@ -22,5 +22,3 @@ const Toggle = React.forwardRef<HTMLInputElement, ToggleProps>(({ margin = '0', 
     </ToggleContainer>
   )
 })
-
-export default Toggle

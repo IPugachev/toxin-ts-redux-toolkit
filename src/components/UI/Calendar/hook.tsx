@@ -1,8 +1,8 @@
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
 
-import { useAppDispatch } from '../../../app/hooks'
-import { changeEndDate, changeEntryDate } from '../../../features/ui/uiSlice'
+import { useAppDispatch } from '../../../store/hooks'
+import { changeEndDate, changeEntryDate } from '../../../store/reducers/ui/uiSlice'
 
 interface CalendarClickProps {
   entryInputRef: React.RefObject<HTMLInputElement>
