@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Header } from './components/Header'
 import { Button } from './components/UI/Button'
 import { Calendar } from './components/UI/Calendar'
+import { Checkbox } from './components/UI/Checkbox'
 import { Diagram } from './components/UI/Diagram'
 import { Dropdown } from './components/UI/Dropdown'
 import { Input } from './components/UI/Input'
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
 
       {/* <Toggle title='test' /> */}
       <Slider title='диапазон цены' initialMin={0} initialMax={150} />
+      <Checkbox checkboxType='list' title='test' />
       {/* <Body>
         <Header />
         <Routes>

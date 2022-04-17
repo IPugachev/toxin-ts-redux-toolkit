@@ -97,9 +97,20 @@ export const uiSlice = createSlice({
       state[action.payload.key] = action.payload.value
       return { ...state }
     },
+    changeCheckbox: (state, action: PayloadAction<{ key: keyof UiState; value: boolean }>) => {
+      return { ...state, [action.payload.key]: action.payload.value }
+    },
   },
 })
 // export const selectUi = (state: RootState) => state.ui
-export const { changeDropdown, clearDropdown, subDropdown, addDropdown, changeEntryDate, changeEndDate, changeSlider } =
-  uiSlice.actions
+export const {
+  changeDropdown,
+  clearDropdown,
+  subDropdown,
+  addDropdown,
+  changeEntryDate,
+  changeEndDate,
+  changeSlider,
+  changeCheckbox,
+} = uiSlice.actions
 export default uiSlice.reducer
