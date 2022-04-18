@@ -95,7 +95,8 @@ export const uiSlice = createSlice({
     },
     changeSlider: (state, action: PayloadAction<{ key: 'from' | 'to'; value: number }>) => {
       state[action.payload.key] = action.payload.value
-      return { ...state }
+      // return { ...state }
+      return state
     },
     changeCheckbox: (state, action: PayloadAction<{ key: keyof UiState; value: boolean }>) => {
       return { ...state, [action.payload.key]: action.payload.value }

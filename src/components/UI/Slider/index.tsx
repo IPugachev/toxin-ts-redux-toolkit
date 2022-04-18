@@ -14,8 +14,10 @@ interface SliderProps {
 
 export const Slider: React.FC<SliderProps> = ({ title }) => {
   const dispatch = useDispatch()
-  const initialMin = useAppSelector((store) => store.ui.from)
-  const initialMax = useAppSelector((store) => store.ui.to)
+  // const initialMin = useAppSelector((store) => store.ui.from)
+  // const initialMax = useAppSelector((store) => store.ui.to)
+  const initialMin = 0
+  const initialMax = 150
   const [minVal, setMinVal] = useState(initialMin)
   const [maxVal, setMaxVal] = useState(initialMax)
   const minValRef = useRef<HTMLInputElement>(null)

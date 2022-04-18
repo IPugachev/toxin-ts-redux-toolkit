@@ -23,7 +23,7 @@ export const App: React.FC = () => {
 
       {/* <Toggle title='test' /> */}
       <Slider title='диапазон цены' initialMin={0} initialMax={150} />
-      <Checkbox checkboxType='list' title='test' />
+
       {/* <Body>
         <Header />
         <Routes>
