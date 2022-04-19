@@ -1,10 +1,19 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
-import classnames from 'classnames'
-import './style.css'
-import { useDispatch } from 'react-redux'
 
-import { useAppSelector } from '../../../store/hooks'
+import './style.css'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { changeSlider } from '../../../store/reducers/ui/uiSlice'
+import {
+  ContainerRange,
+  ContainerValue,
+  SliderContainer,
+  SliderRange,
+  SliderTitle,
+  SliderTrack,
+  SliderValue,
+  SliderWrapper,
+  Thumb,
+} from './styles'
 
 interface SliderProps {
   title: string
@@ -13,7 +22,7 @@ interface SliderProps {
 }
 
 export const Slider: React.FC<SliderProps> = ({ title }) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   // const initialMin = useAppSelector((store) => store.ui.from)
   // const initialMax = useAppSelector((store) => store.ui.to)
   const initialMin = 0
@@ -58,13 +67,13 @@ export const Slider: React.FC<SliderProps> = ({ title }) => {
   // Get min and max values when their state changes
 
   return (
-    <div className='container'>
-      <div className='container-value'>
-        <div className='slider__title'>{title}</div>
-        <div className='slider__value'>{`${minVal * 100}₽ - ${maxVal * 100}₽`}</div>
-      </div>
-      <div className='container-range'>
-        <input
+    <SliderContainer>
+      <ContainerValue>
+        <SliderTitle>{title}</SliderTitle>
+        <SliderValue>{`${minVal * 100}₽ - ${maxVal * 100}₽`}</SliderValue>
+      </ContainerValue>
+      <ContainerRange>
+        <Thumb
           type='range'
           min={initialMin}
           max={initialMax}
@@ -76,11 +85,8 @@ export const Slider: React.FC<SliderProps> = ({ title }) => {
             dispatch(changeSlider({ key: 'from', value: value }))
             event.target.value = value.toString()
           }}
-          className={classnames('thumb thumb--zindex-3', {
-            'thumb--zindex-5': minVal > initialMax - 100,
-          })}
         />
-        <input
+        <Thumb
           type='range'
           min={initialMin}
           max={initialMax}
@@ -92,13 +98,12 @@ export const Slider: React.FC<SliderProps> = ({ title }) => {
             dispatch(changeSlider({ key: 'to', value: value }))
             event.target.value = value.toString()
           }}
-          className='thumb thumb--zindex-4'
         />
-        <div className='slider'>
-          <div className='slider__track' />
-          <div ref={range} className='slider__range' />
-        </div>
-      </div>
-    </div>
+        <SliderWrapper>
+          <SliderTrack />
+          <SliderRange ref={range} />
+        </SliderWrapper>
+      </ContainerRange>
+    </SliderContainer>
   )
 }
